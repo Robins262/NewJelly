@@ -32,7 +32,7 @@ const listaproductos = [
     {
         id: 4,
         nombre: "Gelatina Frutos rojos ",
-        descripcion: "Set completo color rosa con corsé, falda de tul, ligueros y medias. Incluye collar y mangas desmontables.",
+        descripcion: "Dulce gelatina con toques citricos.",
         image: "https://img.delicious.com.au/w3UNaaq8/w1200/del/2024/01/summer-berry-jelly-205276-1.jpg",
         categoria: "Dulce",
         precio: 80.00,
@@ -42,7 +42,7 @@ const listaproductos = [
     {
         id: 5,
         nombre: "Gelatina Nube",
-        descripcion: "Set completo color rosa con corsé, falda de tul, ligueros y medias. Incluye collar y mangas desmontables.",
+        descripcion: "Dulce con toques cremosos.",
         image: "https://cdn.greatlifepublishing.net/wp-content/uploads/sites/2/2022/07/21063910/cloud-01.jpg",
         categoria: "CREMOSO",
         precio: 60.00,
