@@ -2,8 +2,10 @@
   "productos_lista": [
     {
       "nombre": "Hola",
-      "precio": 50,
+      "categoria": "yose",
       "descripcion": "YO NOSE MAÑANA",
+      "precio": 50,
+      "descuento": 500,
       "imagen": "/imagenes/2-1 (6).png"
     }
   ]
