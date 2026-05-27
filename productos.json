@@ -1,0 +1,10 @@
+{
+  "productos_lista": [
+    {
+      "nombre": "Hola",
+      "precio": 50,
+      "descripcion": "YO NOSE MAÑANA",
+      "imagen": "/imagenes/2-1 (6).png"
+    }
+  ]
+}
