@@ -1,4 +1,4 @@
-// 1. LISTA DE RESPALDO (Se queda vacía para depender 100% de lo que subas)
+// 1. LISTA DE RESPALDO (Vacía para depender 100% de lo que subas al CMS)
 const listaproductosRespaldo = [];
 
 // 2. FUNCIÓN PARA DIBUJAR LAS TARJETAS EN EL HTML
@@ -8,8 +8,8 @@ function renderizarProductos(listaParaPintar) {
 
     productitem.innerHTML = ""; // Limpiamos el contenedor antes de dibujar
 
-    if (listaParaPintar.length === 0) {
-        productitem.innerHTML = `<p style="text-align:center; width:100%; color:#888;">No hay productos disponibles por el momento.</p>`;
+    if (!listaParaPintar || listaParaPintar.length === 0) {
+        productitem.innerHTML = `<p style="text-align:center; width:100%; color:#888; grid-column: 1/-1; padding: 20px;">No hay productos disponibles por el momento. ¡Añade uno desde tu panel!</p>`;
         return;
     }
 
@@ -52,21 +52,32 @@ function renderizarProductos(listaParaPintar) {
     });
 }
 
-// 3. CONSULTA ULTRA-COMPATIBLE AL ARCHIVO DE LA INTERFAZ
+// 3. CONSULTA CON DETECCIÓN AUTOMÁTICA DE FORMATOS JSON
 fetch('./productos.json')
   .then(response => {
       if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
       return response.json();
   })
   .then(data => {
-      // Leer la lista del CMS de forma exacta
       let listaCms = [];
-      
+
+      // Caso A: Si los datos vienen dentro de un objeto con la propiedad 'productos_lista'
       if (data && data.productos_lista) {
-          listaCms = data.productos_lista;
+          listaCms = Array.isArray(data.productos_lista) ? data.productos_lista : Object.values(data.productos_lista);
+      } 
+      // Caso B: Si los datos vienen directamente como una lista pura [ ]
+      else if (Array.isArray(data)) {
+          listaCms = data;
+      }
+      // Caso C: Si vienen como un objeto general de claves de Pages CMS { "0": {...}, "1": {...} }
+      else if (data && typeof data === 'object') {
+          listaCms = Object.values(data);
       }
 
-      // Mostrar los productos en la web
+      // Limpiar y filtrar cualquier elemento inválido o vacío que no tenga nombre
+      listaCms = listaCms.filter(prod => prod && (prod.nombre || prod.descripcion));
+
+      // Mandar a dibujar a la pantalla de la tienda
       renderizarProductos(listaCms);
   })
   .catch(error => {
@@ -74,8 +85,7 @@ fetch('./productos.json')
       renderizarProductos([]); 
   });
 
-
-// 4. LÓGICA DE TU CARRITO DE COMPRAS (Manteniendo intacta toda tu funcionalidad)
+// 4. LÓGICA DE TU CARRITO DE COMPRAS
 let cart = [];
 
 function addToCart(id, name, price, image) {
@@ -197,5 +207,6 @@ function checkout() {
         message += `• ${item.name} - S/ ${item.price} x ${item.quantity}%0A`;
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
-    window.open://wa.me/51910158797?text=${message}`, '_blank');
+    
+    window.open(`https://wa.me{message}`, '_blank');
 }
