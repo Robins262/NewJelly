@@ -9,10 +9,11 @@
   },
   {
     "id": 2,
-    "nombre": "puch",
-    "categoria": "pucha",
-    "descripcion": "pucha",
+    "nombre": "Prueba",
+    "categoria": "Prueba",
+    "descripcion": "PRUEBA",
     "precio": 50,
-    "descuento": 100
+    "descuento": 100,
+    "imagen": "imagenes/694678136_902662316165899_3441723813991523220_n.jpg"
   }
 ]
