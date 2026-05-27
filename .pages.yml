@@ -3,21 +3,17 @@ media:
   output: "imagenes"
 
 content:
-  - name: productos_seccion
+  - name: productos
     label: "Mis Productos"
     type: file
     path: "productos.json"
     format: json
+    list: true
     fields:
-      - name: productos_lista
-        label: "Lista General de Catálogo"
-        type: object
-        list: true
-        fields:
-          - { name: id, label: "ID Único (Número)", type: number }
-          - { name: nombre, label: "Nombre de la Gelatina", type: string }
-          - { name: categoria, label: "Categoría (Dulce / CREMOSO)", type: string }
-          - { name: descripcion, label: "Descripción", type: text }
-          - { name: precio, label: "Precio de Venta (S/)", type: number }
-          - { name: descuento, label: "Precio Normal/Descuento (S/)", type: number }
-          - { name: imagen, label: "Foto de la Gelatina", type: image }
+      - { name: id, label: "ID Único (Número)", type: number }
+      - { name: nombre, label: "Nombre de la Gelatina", type: string }
+      - { name: categoria, label: "Categoría (DULCE / CREMOSO / CITRICO)", type: string }
+      - { name: descripcion, label: "Descripción", type: text }
+      - { name: precio, label: "Precio de Venta (S/)", type: number }
+      - { name: descuento, label: "Precio Normal/Descuento (S/)", type: number }
+      - { name: imagen, label: "Foto de la Gelatina", type: image }
