@@ -1,13 +1,1 @@
-{
-  "productos_lista": [
-    {
-      "id": 1,
-      "nombre": "Hola",
-      "categoria": "CREMOSO",
-      "descripcion": "QUE HACE",
-      "precio": 50,
-      "descuento": 100,
-      "imagen": "imagenes/694678136_902662316165899_3441723813991523220_n.jpg"
-    }
-  ]
-}
+[]
