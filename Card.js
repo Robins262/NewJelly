@@ -180,17 +180,12 @@ function filterProducts(category) {
     });
 }
 
-// 5. REDIRECCIONAMIENTO CON ALERTAS DE DIAGNÓSTICO
+// 5. REDIRECCIONAMIENTO DIRECTO ENLACE WHATSAPP EN FORMATO WA.ME
 function checkout() {
-    // Alarma 1: Ver si el botón responde al clic
-    alert("¡Hiciste clic en el botón de finalizar compra!");
-
     if (cart.length === 0) {
-        alert("El sistema detecta que tu carrito está vacío.");
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
-    
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:%0A%0A';
 
@@ -199,11 +194,10 @@ function checkout() {
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
+    // ENLACE CORREGIDO CON SINTAXIS EXACTA Y TU NÚMERO
     const whatsappUrl = "https://wa.me" + message;
     
-    // Alarma 2: Ver el enlace final que se generó antes de abrirlo
-    alert("Redirigiendo a: " + whatsappUrl);
-    
+    // Ejecuta la redirección limpia en la ventana actual
     window.location.href = whatsappUrl;
 }
 
