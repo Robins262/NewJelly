@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ 🐻Magic Jelly - Tienda Online</title>
     <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Iconos de Font Awesome v6 Actualizados -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- CORRECCIÓN RUTA CSS: Busqueda fija local -->
     <link rel="stylesheet" href="./Styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <i class="fas"></i>
+                <i class="fas fa-crown"></i>
                 🐻Magic Jelly
             </a>
             <ul class="nav-links">
@@ -24,11 +24,10 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
              <div class="cart-icon" onclick="toggleCart()">
-             <div class="cart-icon" onclick="toggleCart()">
-    <i class="fas fa-shopping-cart"></i>
-    <span class="cart-count" id="cartCount">0</span>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
             </div>
-       
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -65,14 +64,14 @@
     <!-- Carrito Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h2><i class="fas fa-shopping-bag"></i> Tu Carrito</h2>
+            <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
             <button class="close-cart" onclick="toggleCart()">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="cart-empty">
-                <i class="fas fa-shopping-bag"></i>
+                <i class="fas fa-shopping-cart"></i>
                 <p>Tu carrito está vacío</p>
             </div>
         </div>
@@ -146,8 +145,6 @@
         </div>
     </footer>
 
-    <!-- CORRECCIÓN RUTA JS: Busqueda fija local -->
     <script src="./Card.js"></script>
- 
 </body>
 </html>
