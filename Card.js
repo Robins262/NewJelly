@@ -1,56 +1,6 @@
-// 1. TU LISTA ORIGINAL (Queda como respaldo automático por si el archivo JSON está vacío o da error)
-const listaproductosRespaldo = [
-    {
-        id: 1,
-        nombre: "Gelatina Tropical",
-        descripcion: "Dulce celeste.",
-        image: "https://fbcdn.net",
-        categoria: "Dulce",
-        precio: 60.00,
-        descuento: 90.00,
-        botton: "Agregar"
-    },
-    {
-        id: 2,
-        nombre: "Gelatina frutal",
-        descripcion: "Dulce frutal con sabores dulces y citricos",
-        image: "https://pinimg.com",
-        categoria: "Dulce",
-        precio: 60.00,
-        descuento: 90.00,
-        botton: "Agregar"
-    },
-    {
-        id: 3,
-        nombre: "Gelatina Floral",
-        descripcion: "Dulce floral, con sabores dulces y cremosos.",
-        image: "https://gstatic.com",
-        categoria: "Dulce",
-        precio: 75.00,
-        descuento: 100.00,
-        botton: "Agregar"
-    },
-    {
-        id: 4,
-        nombre: "Gelatina Frutos rojos ",
-        descripcion: "Dulce gelatina con toques citricos.",
-        image: "https://delicious.com.au",
-        categoria: "Dulce",
-        precio: 80.00,
-        descuento: 90.00,
-        botton: "Agregar"
-    },
-    {
-        id: 5,
-        nombre: "Gelatina Nube",
-        descripcion: "Dulce con toques cremosos.",
-        image: "https://greatlifepublishing.net",
-        categoria: "CREMOSO",
-        precio: 60.00,
-        descuento: 90.00,
-        botton: "Agregar"
-    }
-];
+// 1. TU LISTA ORIGINAL (Ahora queda vacía para que no se dupliquen ni queden atrapadas)
+const listaproductosRespaldo = [];
+
 
 // 2. FUNCIÓN CON TU DISEÑO EXACTO DE TARJETA HTML
 function renderizarProductos(listaParaPintar) {
