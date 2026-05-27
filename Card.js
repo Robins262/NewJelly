@@ -59,13 +59,8 @@ fetch('./productos.json')
       return response.json();
   })
   .then(data => {
-      // Pages CMS guarda los datos directamente en un Array []
       let listaCms = Array.isArray(data) ? data : [];
-
-      // Filtrar por seguridad los elementos que se suban sin nombre
       listaCms = listaCms.filter(prod => prod && prod.nombre);
-
-      // Mostrar los productos en la web
       renderizarProductos(listaCms);
   })
   .catch(error => {
@@ -120,7 +115,8 @@ function updateCart() {
                     <div class="cart-item-name">${item.name}</div>
                     <div class="cart-item-price">S/ ${item.price} x ${item.quantity}</div>
                 </div>
-                <button class="remove-item" onclick="remove-item" onclick="removeFromCart(${item.id})">
+                <!-- CORRECCIÓN SINTAXIS AQUÍ (Se quitó el doble onclick roto) -->
+                <button class="remove-item" onclick="removeFromCart(${item.id})">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -183,7 +179,7 @@ function filterProducts(category) {
     });
 }
 
-// 5. REDIRECCIONAMIENTO DEFINITIVO WHATSAPP (CORREGIDO)
+// 5. REDIRECCIONAMIENTO ENLACE WHATSAPP DIRIGIDO A TU NÚMERO
 function checkout() {
     if (cart.length === 0) {
         showModal('Tu carrito está vacío. Agrega productos primero.');
@@ -197,8 +193,6 @@ function checkout() {
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    // URL FIJA OFICIAL HACIA LIMA, PERÚ
     const whatsappUrl = 'https://whatsapp.com' + message;
-    
     window.open(whatsappUrl, '_blank');
 }
