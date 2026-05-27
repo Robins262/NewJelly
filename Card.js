@@ -59,21 +59,14 @@ fetch('./productos.json')
       return response.json();
   })
   .then(data => {
+      // Leer la lista del CMS de forma exacta
       let listaCms = [];
-
-      // Detectar si vienen envueltos en la propiedad 'productos_lista' (Formato Object List)
+      
       if (data && data.productos_lista) {
-          listaCms = Array.isArray(data.productos_lista) ? data.productos_lista : Object.values(data.productos_lista);
-      } 
-      // Si los datos son directamente una lista []
-      else if (Array.isArray(data)) {
-          listaCms = data;
+          listaCms = data.productos_lista;
       }
 
-      // Filtrar elementos vacíos
-      listaCms = listaCms.filter(prod => prod && prod.nombre);
-
-      // Mostrar los productos en tu página web
+      // Mostrar los productos en la web
       renderizarProductos(listaCms);
   })
   .catch(error => {
