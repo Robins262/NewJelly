@@ -52,32 +52,20 @@ function renderizarProductos(listaParaPintar) {
     });
 }
 
-// 3. CONSULTA CON DETECCIÓN AUTOMÁTICA DE FORMATOS JSON
+// 3. CONSULTA AL ARCHIVO DE LA INTERFAZ (LISTA DIRECTA)
 fetch('./productos.json')
   .then(response => {
       if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
       return response.json();
   })
   .then(data => {
-      let listaCms = [];
+      // Pages CMS guarda los datos directamente en un Array []
+      let listaCms = Array.isArray(data) ? data : [];
 
-      // Caso A: Si los datos vienen dentro de un objeto con la propiedad 'productos_lista'
-      if (data && data.productos_lista) {
-          listaCms = Array.isArray(data.productos_lista) ? data.productos_lista : Object.values(data.productos_lista);
-      } 
-      // Caso B: Si los datos vienen directamente como una lista pura [ ]
-      else if (Array.isArray(data)) {
-          listaCms = data;
-      }
-      // Caso C: Si vienen como un objeto general de claves de Pages CMS { "0": {...}, "1": {...} }
-      else if (data && typeof data === 'object') {
-          listaCms = Object.values(data);
-      }
+      // Filtrar por seguridad los elementos que se suban sin nombre
+      listaCms = listaCms.filter(prod => prod && prod.nombre);
 
-      // Limpiar y filtrar cualquier elemento inválido o vacío que no tenga nombre
-      listaCms = listaCms.filter(prod => prod && (prod.nombre || prod.descripcion));
-
-      // Mandar a dibujar a la pantalla de la tienda
+      // Mostrar los productos en la web
       renderizarProductos(listaCms);
   })
   .catch(error => {
@@ -195,22 +183,21 @@ function filterProducts(category) {
     });
 }
 
+// 5. REDIRECCIONAMIENTO CORREGIDO HACIA TU NÚMERO DE WHATSAPP
 function checkout() {
     if (cart.length === 0) {
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
-    
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:%0A%0A';
 
     cart.forEach(item => {
         message += `• ${item.name} - S/ ${item.price} x ${item.quantity}%0A`;
     });
-    
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    // RUTA COMPLETA Y CORREGIDA PARA EL REDIRECCIONAMIENTO:
+    // ENLACE OFICIAL API WHATSAPP CON TU NÚMERO
     const whatsappUrl = 'https://whatsapp.com' + message;
     
     window.open(whatsappUrl, '_blank');
