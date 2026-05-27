@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "nombre": "Nube",
+    "categoria": "DULCE",
+    "descripcion": "Citrico",
+    "precio": 50,
+    "descuento": 100,
+    "imagen": "imagenes/629346255_122267613866190141_3450201872893298447_n.jpg"
+  }
+]
