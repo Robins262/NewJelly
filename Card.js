@@ -52,30 +52,35 @@ function renderizarProductos(listaParaPintar) {
     });
 }
 
-// 3. CONSULTA CON RUTA RELATIVA DETECTABLE POR GITHUB PAGES ("./productos.json")
+// 3. CONSULTA ULTRA-COMPATIBLE AL ARCHIVO DE LA INTERFAZ
 fetch('./productos.json')
   .then(response => {
-      if (!response.ok) throw new Error('No se pudo encontrar el archivo productos.json');
+      if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
       return response.json();
   })
   .then(data => {
       let listaCms = [];
 
-      if (Array.isArray(data)) {
-          listaCms = data;
-      } else if (data && data.productos_lista) {
+      // Detectar si vienen envueltos en la propiedad 'productos_lista' (Formato Object List)
+      if (data && data.productos_lista) {
           listaCms = Array.isArray(data.productos_lista) ? data.productos_lista : Object.values(data.productos_lista);
-      } else if (data && typeof data === 'object') {
-          listaCms = Object.values(data).filter(item => item && item.nombre);
+      } 
+      // Si los datos son directamente una lista []
+      else if (Array.isArray(data)) {
+          listaCms = data;
       }
 
+      // Filtrar elementos vacíos
       listaCms = listaCms.filter(prod => prod && prod.nombre);
+
+      // Mostrar los productos en tu página web
       renderizarProductos(listaCms);
   })
   .catch(error => {
-      console.log("Error cargando productos:", error.message);
-      renderizarProductos([]);
+      console.log("Error al cargar productos:", error.message);
+      renderizarProductos([]); 
   });
+
 
 // 4. LÓGICA DE TU CARRITO DE COMPRAS (Manteniendo intacta toda tu funcionalidad)
 let cart = [];
