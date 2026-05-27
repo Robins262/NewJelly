@@ -18,12 +18,10 @@ function renderizarProductos(listaParaPintar) {
         const textoBoton = product.botton || "Agregar";
         const idProducto = product.id !== undefined && product.id !== null ? product.id : (index + 1);
 
-        // Si la ruta comienza con "/", se la quitamos para evitar problemas en GitHub Pages
         if (urlImagen.startsWith("/")) {
             urlImagen = urlImagen.substring(1); 
         }
         
-        // Aseguramos que busque de manera correcta la carpeta de imágenes local
         if (urlImagen.startsWith("imagenes/") && !urlImagen.startsWith("./")) {
             urlImagen = "./" + urlImagen;
         }
@@ -52,7 +50,7 @@ function renderizarProductos(listaParaPintar) {
     });
 }
 
-// 3. CONSULTA AL ARCHIVO DE LA INTERFAZ (LISTA DIRECTA)
+// 3. CONSULTA AL ARCHIVO DE LA INTERFAZ
 fetch('./productos.json')
   .then(response => {
       if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
@@ -115,7 +113,6 @@ function updateCart() {
                     <div class="cart-item-name">${item.name}</div>
                     <div class="cart-item-price">S/ ${item.price} x ${item.quantity}</div>
                 </div>
-                <!-- CORRECCIÓN SINTAXIS AQUÍ (Se quitó el doble onclick roto) -->
                 <button class="remove-item" onclick="removeFromCart(${item.id})">
                     <i class="fas fa-trash"></i>
                 </button>
@@ -163,8 +160,12 @@ function filterProducts(category) {
     const cards = document.querySelectorAll('.product-card');
     const buttons = document.querySelectorAll('.filter-btn');
 
-    buttons.forEach(btn => btn.classList.remove('active'));
-    if (window.event && window.event.target) window.event.target.classList.add('active');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.textContent.trim().toLowerCase() === category.toLowerCase() || (category === 'todos' && btn.textContent.trim().toLowerCase() === 'todos')) {
+            btn.classList.add('active');
+        }
+    });
 
     cards.forEach((card, index) => {
         const cardCategory = card.dataset.category ? card.dataset.category.toLowerCase() : "";
@@ -179,7 +180,7 @@ function filterProducts(category) {
     });
 }
 
-// 5. REDIRECCIONAMIENTO ENLACE WHATSAPP DIRIGIDO A TU NÚMERO
+// 5. REDIRECCIONAMIENTO DIRECTO CON EL ENLACE CORREGIDO WA.ME
 function checkout() {
     if (cart.length === 0) {
         showModal('Tu carrito está vacío. Agrega productos primero.');
@@ -193,6 +194,9 @@ function checkout() {
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    const whatsappUrl = 'https://whatsapp.com' + message;
-    window.open(whatsappUrl, '_blank');
+    // ENLACE CORREGIDO EN FORMATO WA.ME
+    const whatsappUrl = "https://wa.me" + message;
+    
+    // Ejecuta la redirección directa en la pestaña actual para asegurar compatibilidad total
+    window.location.href = whatsappUrl;
 }
