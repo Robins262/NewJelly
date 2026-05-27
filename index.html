@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ 🐻Magic Jelly - Tienda Online</title>
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="stylesheet" href="./Styles.css">
-</head>
+    <title>✨ Mujer Fitness Shop- Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Styles.css">
+    </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <i class="fas fa-crown"></i>
-                🐻Magic Jelly
+                <i class="fas "></i>
+                Mujer Fitness Shop
             </a>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
@@ -23,7 +23,7 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
              <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count" id="cartCount">0</span>
             </div>
         </div>
@@ -31,12 +31,12 @@
 
     <!-- Hero Section -->
     <section class="hero" id="inicio">
-        <h1>Bienvenida a <span>Magic Jelly</span></h1>
+        <h1>Bienvenida a <span>Mujer Fitness Shop</span></h1>
         <p>Descubre nuestro mundo de sabores inolvidables.</p>
         <div class="hero-badges">
             <div class="badge">
                 <i class="fas fa-truck"></i>
-                Envío Gratis
+                Envío Delivery Costo adicional
             </div>
             <div class="badge">
                 <i class="fas fa-shield-alt"></i>
@@ -56,21 +56,21 @@
     </section>
 
     <!-- Productos -->
-    <section class="products-section">
+    <section class="products-section" >
         <div id="productos" class="productos"></div>
     </section>
 
     <!-- Carrito Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
+            <h2><i class="fas fa-shopping-bag"></i> Tu Carrito</h2>
             <button class="close-cart" onclick="toggleCart()">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="cart-empty">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-shopping-bag"></i>
                 <p>Tu carrito está vacío</p>
             </div>
         </div>
@@ -79,8 +79,7 @@
                 <span>Total:</span>
                 <span id="cartTotal">S/ 0.00</span>
             </div>
-            <!-- BOTÓN ACTUALIZADO CON ID SEGURO -->
-            <button class="checkout-btn" id="btn-whatsapp">
+            <button class="checkout-btn" onclick="checkout()">
                 <i class="fab fa-whatsapp"></i>
                 Comprar por WhatsApp
             </button>
@@ -109,8 +108,8 @@
     <footer class="footer" id="contacto">
         <div class="footer-content">
             <div class="footer-section">
-                <h3><i class="fas fa-crown"></i> 🐻Magic Jelly</h3>
-                <p>Tu tienda de confianza para dulces temática de y designs exclusivos inspirados en Paisajes y fantasía.</p>
+                <h3><i class="fas fa-crown"></i> Mujer Fitness Shop</h3>
+                <p>Tu tienda de confianza para productos de fitness y diseños exclusivos inspirados en Paisajes y fantasía.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -141,10 +140,11 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 🐻Magic Jelly. Todos los derechos reservados. ✨ Hecho con amor en Perú</p>
+            <p> 2026 Mujer Fitness Shop. Todos los derechos reservados. ✨ Hecho con amor en Perú</p>
         </div>
     </footer>
 
-    <script src="./Card.js"></script>
+    <script src="Card.js"></script>
+ 
 </body>
 </html>
