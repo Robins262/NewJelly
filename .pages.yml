@@ -1,1 +1,19 @@
-pages.yml
+media:
+  input: "imagenes"
+  output: "/imagenes"
+
+collections:
+  - name: productos
+    label: "Mis Productos"
+    type: file
+    path: "productos.json"
+    format: json
+    fields:
+      - name: productos_lista
+        label: "Lista de Productos"
+        type: list
+        fields:
+          - { name: nombre, label: "Nombre del Producto", type: string }
+          - { name: precio, label: "Precio ($)", type: number }
+          - { name: descripcion, label: "Descripción", type: text }
+          - { name: imagen, label: "Foto del Producto", type: image }
