@@ -187,8 +187,9 @@ function checkout() {
         return;
     }
 
-    const total = cart.reduce((sum, item) => 
-        sum + (item.price * item.quantity), 0
+    const total = cart.reduce(
+        (sum, item) => sum + (item.price * item.quantity),
+        0
     );
 
     let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:\n\n';
@@ -199,14 +200,13 @@ function checkout() {
 
     message += `\nTotal: S/ ${total.toFixed(2)}\n\n¡Gracias! ✨`;
 
-    // Codifica el mensaje correctamente
-    const encodedMessage = encodeURIComponent(message);
+    // Crear URL de WhatsApp correctamente
+    const whatsappUrl =
+        'https://api.whatsapp.com/send?phone=51910158797&text=' +
+        encodeURIComponent(message);
 
-    // URL correcta de WhatsApp
-    const whatsappUrl = `https://wa.me/51910158797?text=${encodedMessage}`;
-
-    // Redirige a WhatsApp
-    window.location.href = whatsappUrl;
+    // Abrir WhatsApp
+    window.open(whatsappUrl, '_blank');
 }
 // CONECTOR DE RESPALDO DIRECTO
 document.addEventListener("DOMContentLoaded", () => {
