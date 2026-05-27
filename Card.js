@@ -1,18 +1,9 @@
-// 1. TU LISTA ORIGINAL (Ahora queda vacía para que no se dupliquen ni queden atrapadas)
+// 1. TU LISTA ORIGINAL (Ahora vacía para quitar el respaldo por completo)
 const listaproductosRespaldo = [];
 
-
-// 2. FUNCIÓN CON TU DISEÑO EXACTO DE TARJETA HTML
+// 2. FUNCIÓN CON TU DISEÑO EXACTO DE TARJETA HTML (Déjala tal cual hacia abajo...)
 function renderizarProductos(listaParaPintar) {
-    let productitem = document.getElementById("productos");
-    if (!productitem) return;
 
-    productitem.innerHTML = ""; // Limpiamos la pantalla antes de dibujar
-
-    listaParaPintar.forEach((product) => {
-        // 1. Obtener la ruta de la imagen (del CMS o de tu lista vieja)
-        let urlImagen = product.imagen || product.image || "";
-        const textoBoton = product.botton || "Agregar";
 
         // CORRECCIÓN CLAVE: Si la ruta empieza con "/", se la quitamos para que GitHub Pages no se confunda
         if (urlImagen.startsWith("/")) {
@@ -43,26 +34,22 @@ function renderizarProductos(listaParaPintar) {
 // 3. CONSULTA INTELIGENTE AL ARCHIVO DE PAGES CMS
 // 3. CONSULTA OPTIMIZADA AL ARCHIVO DE LA INTERFAZ
 // 3. CONSULTA AL ARCHIVO DE LA INTERFAZ
+// 3. CONSULTA DIRECTA AL ARCHIVO DE LA INTERFAZ
 fetch('productos.json')
   .then(response => {
-      if (!response.ok) throw new Error('Cargando lista de respaldo...');
+      if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
       return response.json();
   })
   .then(data => {
-      // Leer los datos del CMS de forma segura sin importar el formato
+      // Lee los datos del CMS de forma directa
       let listaCms = Array.isArray(data) ? data : (data.productos_lista || []);
-
-      if (listaCms.length === 0) {
-          renderizarProductos(listaproductosRespaldo);
-      } else {
-          // Fusionar tus 5 gelatinas fijas con las nuevas añadidas desde la interfaz web
-          const todasLasGelatinas = [...listaproductosRespaldo, ...listaCms];
-          renderizarProductos(todasLasGelatinas);
-      }
+      
+      // Muestra solo lo que hay en el CMS (si está vacío, la página se verá vacía)
+      renderizarProductos(listaCms);
   })
   .catch(error => {
-      console.log("Aviso:", error.message);
-      renderizarProductos(listaproductosRespaldo);
+      console.log("Error:", error.message);
+      renderizarProductos([]); // No muestra nada si hay un error de conexión
   });
 
 
