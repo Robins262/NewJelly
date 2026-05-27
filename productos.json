@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "nombre": "Yo si se hoy",
+    "categoria": "Dulce",
+    "descripcion": "Pa bobno",
+    "precio": 50,
+    "descuento": 50,
+    "imagen": "imagenes/694678136_902662316165899_3441723813991523220_n.jpg"
+  }
+]
