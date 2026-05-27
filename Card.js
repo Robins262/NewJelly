@@ -200,13 +200,18 @@ function checkout() {
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
+    
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas:%0A%0A';
+    let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:%0A%0A';
 
     cart.forEach(item => {
         message += `• ${item.name} - S/ ${item.price} x ${item.quantity}%0A`;
     });
+    
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    window.open(`https://wa.me{message}`, '_blank');
+    // RUTA COMPLETA Y CORREGIDA PARA EL REDIRECCIONAMIENTO:
+    const whatsappUrl = 'https://whatsapp.com' + message;
+    
+    window.open(whatsappUrl, '_blank');
 }
