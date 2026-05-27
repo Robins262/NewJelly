@@ -3,24 +3,42 @@ const listaproductosRespaldo = [];
 
 // 2. FUNCIÓN CON TU DISEÑO EXACTO DE TARJETA HTML (Déjala tal cual hacia abajo...)
 function renderizarProductos(listaParaPintar) {
+    let productitem = document.getElementById("productos");
+    if (!productitem) return;
 
+    productitem.innerHTML = ""; // Limpiamos el contenedor
 
-        // CORRECCIÓN CLAVE: Si la ruta empieza con "/", se la quitamos para que GitHub Pages no se confunda
+    listaParaPintar.forEach((product, index) => {
+        let urlImagen = product.imagen || product.image || "";
+        const textoBoton = product.botton || "Agregar";
+        const idProducto = product.id !== undefined && product.id !== null ? product.id : (index + 1);
+
+        // CORRECCIÓN PARA GITHUB PAGES:
+        // Si la ruta comienza con "/", se la quitamos.
         if (urlImagen.startsWith("/")) {
             urlImagen = urlImagen.substring(1); 
         }
+        
+        // Aseguramos que si la ruta es relativa y empieza con "imagenes/", use la ruta correcta desde la raíz del sitio web
+        if (urlImagen.startsWith("imagenes/")) {
+            urlImagen = "./" + urlImagen;
+        }
+
+        // Validar precios para evitar fallos si el usuario ingresó texto en vez de números en el CMS
+        const precioVenta = product.precio ? parseFloat(product.precio).toFixed(2) : "0.00";
+        const precioDescuento = product.descuento ? parseFloat(product.descuento).toFixed(2) : "0.00";
 
         productitem.innerHTML += `
-             <div class="product-card" data-category="${product.categoria}">
+             <div class="product-card" data-category="${product.categoria || 'Todos'}">
                     <span class="product-tag tag-bestseller">Más Vendido</span>
-                    <img src="${urlImagen}" alt="${product.nombre}" class="product-image" onerror="this.src='https://placehold.co'">
+                    <img src="${urlImagen}" alt="${product.nombre || 'Gelatina'}" class="product-image" onerror="this.onerror=null; this.src='https://placehold.co'">
                     <div class="product-info">
-                        <div class="product-category">${product.categoria}</div>
-                        <h3 class="product-name">${product.nombre}</h3>
-                        <p class="product-description">${product.descripcion}</p>
+                        <div class="product-category">${product.categoria || 'Dulce'}</div>
+                        <h3 class="product-name">${product.nombre || 'Sin Nombre'}</h3>
+                        <p class="product-description">${product.descripcion || 'Sin descripción'}</p>
                         <div class="product-footer">
-                            <div class="product-price">S/ ${parseFloat(product.precio).toFixed(2)}<span>S/ ${parseFloat(product.descuento).toFixed(2)}</span></div>
-                            <button class="add-to-cart" onclick="addToCart(${product.id}, '${product.nombre}', ${product.precio}, '${urlImagen}')">
+                            <div class="product-price">S/ ${precioVenta}<span>S/ ${precioDescuento}</span></div>
+                            <button class="add-to-cart" onclick="addToCart(${idProducto}, '${product.nombre || 'Gelatina'}', ${product.precio || 0}, '${urlImagen}')">
                                 <i class="fas fa-cart-plus"></i>
                                 ${textoBoton}
                             </button>
@@ -30,6 +48,7 @@ function renderizarProductos(listaParaPintar) {
         `;
     });
 }
+
 
 // 3. CONSULTA INTELIGENTE AL ARCHIVO DE PAGES CMS
 // 3. CONSULTA OPTIMIZADA AL ARCHIVO DE LA INTERFAZ
