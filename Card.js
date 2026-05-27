@@ -1,4 +1,4 @@
-// 1. LISTA DE RESPALDO (Vacía para depender 100% de lo que subas al CMS)
+// 1. LISTA DE RESPALDO (Vacía)
 const listaproductosRespaldo = [];
 
 // 2. FUNCIÓN PARA DIBUJAR LAS TARJETAS EN EL HTML
@@ -6,7 +6,7 @@ function renderizarProductos(listaParaPintar) {
     let productitem = document.getElementById("productos");
     if (!productitem) return;
 
-    productitem.innerHTML = ""; // Limpiamos el contenedor antes de dibujar
+    productitem.innerHTML = ""; 
 
     if (!listaParaPintar || listaParaPintar.length === 0) {
         productitem.innerHTML = `<p style="text-align:center; width:100%; color:#888; grid-column: 1/-1; padding: 20px;">No hay productos disponibles por el momento. ¡Añade uno desde tu panel!</p>`;
@@ -180,12 +180,17 @@ function filterProducts(category) {
     });
 }
 
-// 5. REDIRECCIONAMIENTO DIRECTO CON EL ENLACE CORREGIDO WA.ME
+// 5. REDIRECCIONAMIENTO CON ALERTAS DE DIAGNÓSTICO
 function checkout() {
+    // Alarma 1: Ver si el botón responde al clic
+    alert("¡Hiciste clic en el botón de finalizar compra!");
+
     if (cart.length === 0) {
+        alert("El sistema detecta que tu carrito está vacío.");
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
+    
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:%0A%0A';
 
@@ -194,9 +199,18 @@ function checkout() {
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    // ENLACE CORREGIDO EN FORMATO WA.ME
     const whatsappUrl = "https://wa.me" + message;
     
-    // Ejecuta la redirección directa en la pestaña actual para asegurar compatibilidad total
+    // Alarma 2: Ver el enlace final que se generó antes de abrirlo
+    alert("Redirigiendo a: " + whatsappUrl);
+    
     window.location.href = whatsappUrl;
 }
+
+// CONECTOR DE RESPALDO DIRECTO
+document.addEventListener("DOMContentLoaded", () => {
+    const botonEnviar = document.getElementById("btn-whatsapp");
+    if (botonEnviar) {
+        botonEnviar.onclick = checkout;
+    }
+});
