@@ -108,7 +108,7 @@ function updateCart() {
     if (cart.length === 0) {
         cartItems.innerHTML = `
             <div class="cart-empty">
-                <i class="fas fa-shopping-bag"></i>
+                <i class="fas fa-shopping-cart"></i>
                 <p>Tu carrito está vacío</p>
             </div>
         `;
@@ -120,7 +120,7 @@ function updateCart() {
                     <div class="cart-item-name">${item.name}</div>
                     <div class="cart-item-price">S/ ${item.price} x ${item.quantity}</div>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">
+                <button class="remove-item" onclick="remove-item" onclick="removeFromCart(${item.id})">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -183,7 +183,7 @@ function filterProducts(category) {
     });
 }
 
-// 5. REDIRECCIONAMIENTO CORREGIDO HACIA TU NÚMERO DE WHATSAPP
+// 5. REDIRECCIONAMIENTO DEFINITIVO WHATSAPP (CORREGIDO)
 function checkout() {
     if (cart.length === 0) {
         showModal('Tu carrito está vacío. Agrega productos primero.');
@@ -197,7 +197,7 @@ function checkout() {
     });
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
-    // ENLACE OFICIAL API WHATSAPP CON TU NÚMERO
+    // URL FIJA OFICIAL HACIA LIMA, PERÚ
     const whatsappUrl = 'https://whatsapp.com' + message;
     
     window.open(whatsappUrl, '_blank');
