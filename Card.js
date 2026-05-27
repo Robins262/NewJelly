@@ -186,21 +186,28 @@ function checkout() {
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:%0A%0A';
+
+    const total = cart.reduce((sum, item) => 
+        sum + (item.price * item.quantity), 0
+    );
+
+    let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas de Magic Jelly:\n\n';
 
     cart.forEach(item => {
-        message += `• ${item.name} - S/ ${item.price} x ${item.quantity}%0A`;
+        message += `• ${item.name} - S/ ${item.price} x ${item.quantity}\n`;
     });
-    message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
-    
-    // ENLACE CORREGIDO CON SINTAXIS EXACTA Y TU NÚMERO
-    const whatsappUrl = "https://wa.me/910158797" + message;
-    
-    // Ejecuta la redirección limpia en la ventana actual
+
+    message += `\nTotal: S/ ${total.toFixed(2)}\n\n¡Gracias! ✨`;
+
+    // Codifica el mensaje correctamente
+    const encodedMessage = encodeURIComponent(message);
+
+    // URL correcta de WhatsApp
+    const whatsappUrl = `https://wa.me/51910158797?text=${encodedMessage}`;
+
+    // Redirige a WhatsApp
     window.location.href = whatsappUrl;
 }
-
 // CONECTOR DE RESPALDO DIRECTO
 document.addEventListener("DOMContentLoaded", () => {
     const botonEnviar = document.getElementById("btn-whatsapp");
