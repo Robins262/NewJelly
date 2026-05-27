@@ -2,22 +2,19 @@ media:
   input: "imagenes"
   output: "/imagenes"
 
-collections:
+content:
   - name: productos
     label: "Mis Productos"
     type: file
     path: "productos.json"
     format: json
     fields:
-      - name: nombre
-        label: "Nombre del Producto"
-        type: string
-      - name: precio
-        label: "Precio ($)"
-        type: number
-      - name: descripcion
-        label: "Descripción"
-        type: text
-      - name: imagen
-        label: "Foto del Producto"
-        type: image
+      - name: productos_lista
+        label: "Lista de Productos"
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: "Nombre del Producto", type: string }
+          - { name: precio, label: "Precio ($)", type: number }
+          - { name: descripcion, label: "Descripción", type: text }
+          - { name: imagen, label: "Foto del Producto", type: image }
