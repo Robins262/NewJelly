@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "nombre": "Gelatina Nube",
+    "categoria": "Dulce",
+    "descripcion": "Gelatina creomoso",
+    "precio": 50,
+    "descuento": 150,
+    "imagen": "imagenes/694678136_902662316165899_3441723813991523220_n.jpg"
+  }
+]
