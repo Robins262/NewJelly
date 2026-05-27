@@ -5,9 +5,10 @@ media:
 content:
   - name: productos
     label: "Mis Productos"
-    type: collection
+    type: file
     path: "productos.json"
     format: json
+    list: true
     fields:
       - { name: id, label: "ID Único (Número)", type: number }
       - { name: nombre, label: "Nombre de la Gelatina", type: string }
