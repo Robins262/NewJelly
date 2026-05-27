@@ -195,7 +195,7 @@ function checkout() {
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
     
     // ENLACE CORREGIDO CON SINTAXIS EXACTA Y TU NÚMERO
-    const whatsappUrl = "https://wa.me/+51910158797" + message;
+    const whatsappUrl = "https://wa.me/910158797" + message;
     
     // Ejecuta la redirección limpia en la ventana actual
     window.location.href = whatsappUrl;
