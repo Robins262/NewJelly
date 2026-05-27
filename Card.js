@@ -92,27 +92,20 @@ function renderizarProductos(listaParaPintar) {
 
 // 3. CONSULTA INTELIGENTE AL ARCHIVO DE PAGES CMS
 // 3. CONSULTA OPTIMIZADA AL ARCHIVO DE LA INTERFAZ
+// 3. CONSULTA AL ARCHIVO DE LA INTERFAZ
 fetch('productos.json')
   .then(response => {
       if (!response.ok) throw new Error('Cargando lista de respaldo...');
       return response.json();
   })
   .then(data => {
-      // Intentar leer si viene directamente como lista [] o empaquetado en un objeto
-      let listaCms = [];
-      if (Array.isArray(data)) {
-          listaCms = data;
-      } else if (data && data.productos_lista) {
-          listaCms = data.productos_lista;
-      } else if (data && typeof data === 'object') {
-          listaCms = Object.values(data).filter(item => item && item.nombre);
-      }
+      // Leer los datos del CMS de forma segura sin importar el formato
+      let listaCms = Array.isArray(data) ? data : (data.productos_lista || []);
 
-      // Si el archivo está vacío, usar tus 5 gelatinas originales
       if (listaCms.length === 0) {
           renderizarProductos(listaproductosRespaldo);
       } else {
-          // Unir tus gelatinas viejas con las nuevas del CMS para que aparezcan TODAS juntas
+          // Fusionar tus 5 gelatinas fijas con las nuevas añadidas desde la interfaz web
           const todasLasGelatinas = [...listaproductosRespaldo, ...listaCms];
           renderizarProductos(todasLasGelatinas);
       }
@@ -121,6 +114,7 @@ fetch('productos.json')
       console.log("Aviso:", error.message);
       renderizarProductos(listaproductosRespaldo);
   });
+
 
 // 4. LÓGICA DE TU CARRITO DE COMPRAS (Mantenida intacta)
 let cart = [];
