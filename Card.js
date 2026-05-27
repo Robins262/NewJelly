@@ -60,14 +60,19 @@ function renderizarProductos(listaParaPintar) {
     productitem.innerHTML = ""; // Limpiamos la pantalla antes de dibujar
 
     listaParaPintar.forEach((product) => {
-        // Validar si la imagen viene de la nueva interfaz (imagen) o de tu lista vieja (image)
-        const urlImagen = product.imagen || product.image;
+        // 1. Obtener la ruta de la imagen (del CMS o de tu lista vieja)
+        let urlImagen = product.imagen || product.image || "";
         const textoBoton = product.botton || "Agregar";
+
+        // CORRECCIÓN CLAVE: Si la ruta empieza con "/", se la quitamos para que GitHub Pages no se confunda
+        if (urlImagen.startsWith("/")) {
+            urlImagen = urlImagen.substring(1); 
+        }
 
         productitem.innerHTML += `
              <div class="product-card" data-category="${product.categoria}">
                     <span class="product-tag tag-bestseller">Más Vendido</span>
-                    <img src="${urlImagen}" alt="${product.nombre}" class="product-image">
+                    <img src="${urlImagen}" alt="${product.nombre}" class="product-image" onerror="this.src='https://placehold.co'">
                     <div class="product-info">
                         <div class="product-category">${product.categoria}</div>
                         <h3 class="product-name">${product.nombre}</h3>
