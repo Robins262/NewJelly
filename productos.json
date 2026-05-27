@@ -1,12 +1,11 @@
 [
   {
     "id": 1,
-    "nombre": "Nube",
+    "nombre": "Nueva",
     "categoria": "DULCE",
     "descripcion": "Citrico",
     "precio": 50,
-    "descuento": 100,
-    "imagen": "imagenes/629346255_122267613866190141_3450201872893298447_n.jpg"
+    "descuento": 116
   },
   {
     "id": 2,
@@ -14,7 +13,6 @@
     "categoria": "pucha",
     "descripcion": "pucha",
     "precio": 50,
-    "descuento": 100,
-    "imagen": "imagenes/2-1 (6).png"
+    "descuento": 100
   }
 ]
