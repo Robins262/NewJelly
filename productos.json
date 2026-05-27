@@ -7,6 +7,14 @@
       "precio": 50,
       "descuento": 500,
       "imagen": "/imagenes/2-1 (6).png"
+    },
+    {
+      "nombre": "Yo si se mañana",
+      "categoria": "nuevo",
+      "descripcion": "QUE HACE",
+      "precio": 100,
+      "descuento": 147,
+      "imagen": "/imagenes/696491528_1367164988552843_2992584633915050756_n.jpg"
     }
   ]
 }
