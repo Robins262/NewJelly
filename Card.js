@@ -1,30 +1,33 @@
-// 1. TU LISTA ORIGINAL (Ahora vacía para quitar el respaldo por completo)
+// 1. LISTA DE RESPALDO (Se queda vacía para depender 100% de lo que subas)
 const listaproductosRespaldo = [];
 
-// 2. FUNCIÓN CON TU DISEÑO EXACTO DE TARJETA HTML (Déjala tal cual hacia abajo...)
+// 2. FUNCIÓN PARA DIBUJAR LAS TARJETAS EN EL HTML
 function renderizarProductos(listaParaPintar) {
     let productitem = document.getElementById("productos");
     if (!productitem) return;
 
-    productitem.innerHTML = ""; // Limpiamos el contenedor
+    productitem.innerHTML = ""; // Limpiamos el contenedor antes de dibujar
+
+    if (listaParaPintar.length === 0) {
+        productitem.innerHTML = `<p style="text-align:center; width:100%; color:#888;">No hay productos disponibles por el momento.</p>`;
+        return;
+    }
 
     listaParaPintar.forEach((product, index) => {
         let urlImagen = product.imagen || product.image || "";
         const textoBoton = product.botton || "Agregar";
         const idProducto = product.id !== undefined && product.id !== null ? product.id : (index + 1);
 
-        // CORRECCIÓN PARA GITHUB PAGES:
-        // Si la ruta comienza con "/", se la quitamos.
+        // Si la ruta comienza con "/", se la quitamos para evitar problemas en GitHub Pages
         if (urlImagen.startsWith("/")) {
             urlImagen = urlImagen.substring(1); 
         }
         
-        // Aseguramos que si la ruta es relativa y empieza con "imagenes/", use la ruta correcta desde la raíz del sitio web
-        if (urlImagen.startsWith("imagenes/")) {
+        // Aseguramos que busque de manera correcta la carpeta de imágenes local
+        if (urlImagen.startsWith("imagenes/") && !urlImagen.startsWith("./")) {
             urlImagen = "./" + urlImagen;
         }
 
-        // Validar precios para evitar fallos si el usuario ingresó texto en vez de números en el CMS
         const precioVenta = product.precio ? parseFloat(product.precio).toFixed(2) : "0.00";
         const precioDescuento = product.descuento ? parseFloat(product.descuento).toFixed(2) : "0.00";
 
@@ -49,41 +52,41 @@ function renderizarProductos(listaParaPintar) {
     });
 }
 
-
-// 3. CONSULTA INTELIGENTE AL ARCHIVO DE PAGES CMS
-// 3. CONSULTA OPTIMIZADA AL ARCHIVO DE LA INTERFAZ
-// 3. CONSULTA AL ARCHIVO DE LA INTERFAZ
-// 3. CONSULTA DIRECTA AL ARCHIVO DE LA INTERFAZ
-fetch('productos.json')
+// 3. CONSULTA CON RUTA RELATIVA DETECTABLE POR GITHUB PAGES ("./productos.json")
+fetch('./productos.json')
   .then(response => {
-      if (!response.ok) throw new Error('No se pudo leer el archivo de productos');
+      if (!response.ok) throw new Error('No se pudo encontrar el archivo productos.json');
       return response.json();
   })
   .then(data => {
-      // Lee los datos del CMS de forma directa
-      let listaCms = Array.isArray(data) ? data : (data.productos_lista || []);
-      
-      // Muestra solo lo que hay en el CMS (si está vacío, la página se verá vacía)
+      let listaCms = [];
+
+      if (Array.isArray(data)) {
+          listaCms = data;
+      } else if (data && data.productos_lista) {
+          listaCms = Array.isArray(data.productos_lista) ? data.productos_lista : Object.values(data.productos_lista);
+      } else if (data && typeof data === 'object') {
+          listaCms = Object.values(data).filter(item => item && item.nombre);
+      }
+
+      listaCms = listaCms.filter(prod => prod && prod.nombre);
       renderizarProductos(listaCms);
   })
   .catch(error => {
-      console.log("Error:", error.message);
-      renderizarProductos([]); // No muestra nada si hay un error de conexión
+      console.log("Error cargando productos:", error.message);
+      renderizarProductos([]);
   });
 
-
-// 4. LÓGICA DE TU CARRITO DE COMPRAS (Mantenida intacta)
+// 4. LÓGICA DE TU CARRITO DE COMPRAS (Manteniendo intacta toda tu funcionalidad)
 let cart = [];
 
 function addToCart(id, name, price, image) {
     const existingItem = cart.find(item => item.id === id);
-
     if (existingItem) {
         existingItem.quantity++;
     } else {
         cart.push({ id, name, price, image, quantity: 1 });
     }
-
     updateCart();
     showModal(`¡${name} agregado al carrito!`);
     createConfetti();
@@ -98,7 +101,6 @@ function updateCart() {
     const cartItems = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
     const cartTotal = document.getElementById('cartTotal');
-
     if (!cartItems || !cartCount || !cartTotal) return;
 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -134,7 +136,6 @@ function toggleCart() {
     document.getElementById('cartSidebar').classList.toggle('active');
 }
 
-// ===== MODAL =====
 function showModal(text) {
     const modalText = document.getElementById('modalText');
     const modal = document.getElementById('modal');
@@ -149,7 +150,6 @@ function closeModal() {
     if (modal) modal.classList.remove('active');
 }
 
-// ===== CONFETTI =====
 function createConfetti() {
     const container = document.getElementById('confettiContainer');
     if (!container) return;
@@ -163,24 +163,18 @@ function createConfetti() {
         confetti.style.animationDelay = Math.random() * 2 + 's';
         confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
         container.appendChild(confetti);
-
         setTimeout(() => confetti.remove(), 3000);
     }
 }
 
-// ===== FILTROS CORREGIDOS =====
 function filterProducts(category) {
     const cards = document.querySelectorAll('.product-card');
     const buttons = document.querySelectorAll('.filter-btn');
 
     buttons.forEach(btn => btn.classList.remove('active'));
-    
-    if (window.event && window.event.target) {
-        window.event.target.classList.add('active');
-    }
+    if (window.event && window.event.target) window.event.target.classList.add('active');
 
     cards.forEach((card, index) => {
-        // Comparamos ignorando mayúsculas y minúsculas para evitar fallas entre "Dulce" y "DULCE"
         const cardCategory = card.dataset.category ? card.dataset.category.toLowerCase() : "";
         const targetCategory = category.toLowerCase();
 
@@ -193,21 +187,17 @@ function filterProducts(category) {
     });
 }
 
-// ===== CHECKOUT WHATSAPP =====
 function checkout() {
     if (cart.length === 0) {
         showModal('Tu carrito está vacío. Agrega productos primero.');
         return;
     }
-
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let message = '¡Hola! Quiero comprar las siguientes Gelatinas Artísticas:%0A%0A';
 
     cart.forEach(item => {
         message += `• ${item.name} - S/ ${item.price} x ${item.quantity}%0A`;
     });
-
     message += `%0ATotal: S/ ${total.toFixed(2)}%0A%0A¡Gracias! ✨`;
-
-    window.open(`https://wa.me{message}`, '_blank');
+    window.open://wa.me/51910158797?text=${message}`, '_blank');
 }
