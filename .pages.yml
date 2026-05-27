@@ -14,7 +14,10 @@ content:
         type: object
         list: true
         fields:
-          - { name: nombre, label: "Nombre del Producto", type: string }
-          - { name: precio, label: "Precio ($)", type: number }
+          - { name: id, label: "ID Único (Número)", type: number }
+          - { name: nombre, label: "Nombre de la Gelatina", type: string }
+          - { name: categoria, label: "Categoría", type: string }
           - { name: descripcion, label: "Descripción", type: text }
-          - { name: imagen, label: "Foto del Producto", type: image }
+          - { name: precio, label: "Precio Venta (S/)", type: number }
+          - { name: descuento, label: "Precio Anterior (S/)", type: number }
+          - { name: imagen, label: "Foto de la Gelatina", type: image }
