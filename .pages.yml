@@ -11,9 +11,9 @@ content:
     list: true
     fields:
       - { name: id, label: "ID Único (Número)", type: number }
-      - { name: nombre, label: "Nombre de la Gelatina", type: string }
-      - { name: categoria, label: "Categoría (DULCE / CREMOSO / CITRICO)", type: string }
+      - { name: nombre, label: "Nombre de la maquina", type: string }
+      - { name: categoria, label: "Categoría (PRECOR / HAMMER / PANATTA / IMPORTADO)", type: string }
       - { name: descripcion, label: "Descripción", type: text }
       - { name: precio, label: "Precio de Venta (S/)", type: number }
       - { name: descuento, label: "Precio Normal/Descuento (S/)", type: number }
-      - { name: imagen, label: "Foto de la Gelatina", type: image }
+      - { name: imagen, label: "Foto de la maquina", type: image }
